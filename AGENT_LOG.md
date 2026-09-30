@@ -90,3 +90,5 @@ What the coding agent (Claude Code) was asked, what it produced, what was wrong 
 - **No Hacker News quotes on screen.** The HN API returns results for the same queries from outside. The worker now sends a User-Agent, and each claim logs `hn=… exa=… kept=… removed=…` so the next run shows which source found what. Exa also warns if its response shape changes.
 
 **Verified by me after the fix:** 29 unit tests, including new ones for Markdown normalization, the GitHub discussion filter and Exa's unexpected-shape path.
+
+**Re-run after the fixes (case "Agent code review", live):** `[run-trial] claim 1 query="coding agent human review" hn=8 exa=4 kept=8 removed=0`. Hacker News now returns results in the worker, the review claim reads 8 support and 0 push back (the stance fix held), the per-claim cap held at 8, and no quote was removed for formatting (24 kept, 0 removed, 29 pages). Remaining weakness: a few kept quotes are only loosely related to their claim; team votes catch these today.

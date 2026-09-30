@@ -53,7 +53,7 @@ export default function CasePage() {
 
   return (
     <div className="min-h-full">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-card px-4 py-[18px] md:px-8">
+      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-card px-4 py-[18px] shadow-[0_1px_3px_rgba(14,23,38,0.06)] md:px-8">
         <div className="min-w-0">
           <h1 className="m-0 text-[22px] font-bold tracking-[-0.02em]">{caseRow.data.title}</h1>
           <p className="m-0 mt-0.5 text-sm text-muted-foreground">Tested against {caseRow.data.audience}</p>
@@ -187,8 +187,8 @@ function VersionBoard({
   }
 
   const messagePanel = (
-    <article aria-labelledby="message-heading" className="rounded-2xl border border-border bg-card">
-      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule px-[22px] py-3.5">
+    <article aria-labelledby="message-heading" className="panel">
+      <div className="panel-header flex flex-wrap items-baseline justify-between gap-2 rounded-t-[15px] px-[22px] py-3.5">
         <h2 id="message-heading" className="m-0 text-sm font-semibold text-muted-foreground">
           Message under test
         </h2>
@@ -204,7 +204,7 @@ function VersionBoard({
     return (
       <div className="mx-auto flex max-w-4xl flex-col gap-5">
         {messagePanel}
-        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card px-[22px] py-4">
+        <div className="flex flex-wrap items-center gap-3 panel px-[22px] py-4">
           {version.status === 'splitting' ? (
             <span role="status" className="text-muted-foreground">
               Claude is splitting the message into checkable claims. This takes a few seconds.

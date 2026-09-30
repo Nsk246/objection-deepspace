@@ -56,8 +56,8 @@ export default function MemoryPage() {
           </p>
         )}
         {groups.map((g) => (
-          <section key={g.key} className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="px-[22px] py-4">
+          <section key={g.key} className="overflow-hidden panel">
+            <div className="panel-header px-[22px] py-4">
               <h2 className="m-0 text-base font-semibold">{g.claimText}</h2>
               {g.caseRow && (
                 <p className="m-0 text-sm text-muted-foreground">

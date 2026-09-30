@@ -43,7 +43,7 @@ export default function Navigation() {
       <nav
         data-testid="app-navigation"
         aria-label="Workspace"
-        className="flex shrink-0 flex-col border-b border-border bg-card md:min-h-screen md:w-[236px] md:gap-[22px] md:border-r md:border-b-0 md:px-3.5 md:py-5"
+        className="relative z-10 flex shrink-0 flex-col border-b border-border bg-card shadow-[1px_0_3px_rgba(14,23,38,0.05)] md:min-h-screen md:w-[236px] md:gap-[22px] md:border-r md:border-b-0 md:px-3.5 md:py-5"
       >
         <div className="flex items-center justify-between gap-2 px-4 py-3 md:px-2 md:py-0">
           <Link to="/cases" className="flex items-center gap-2.5 text-foreground no-underline">
@@ -77,7 +77,7 @@ export default function Navigation() {
             </Link>
           )}
 
-          <div className="mt-auto flex flex-col gap-3">
+          <div className="mt-auto flex flex-col gap-3 border-t border-border pt-4">
             {isSignedIn && <TrialsNote />}
             {!isLoaded ? null : isSignedIn && !profileReady ? (
               <div className="h-11 animate-pulse rounded-lg bg-muted" />
@@ -171,7 +171,7 @@ function TrialsNote() {
   const { trialsLeft, loading } = useTrialsLeft()
   if (loading) return null
   return (
-    <p className="m-0 rounded-[10px] bg-background p-3 text-[13px] text-muted-foreground">
+    <p className="m-0 rounded-[10px] border border-border bg-background p-3 text-[13px] text-muted-foreground">
       {trialsLeft} of {config.limits.trialsPerUserPerDay} trials left today. Trials search the web and run AI, so each person has a daily limit.
     </p>
   )

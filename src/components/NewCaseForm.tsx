@@ -52,7 +52,7 @@ export function NewCaseForm() {
   const fieldError = (msg: string | null) => (submitted && msg ? <p className="mt-1 text-[13px] text-destructive">{msg}</p> : null)
 
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6">
+    <form onSubmit={submit} noValidate className="flex flex-col gap-4 panel p-6">
       <h2 className="m-0 text-lg font-semibold tracking-[-0.015em]">Put a message on trial</h2>
       <div>
         <Label htmlFor="case-title">Case name</Label>

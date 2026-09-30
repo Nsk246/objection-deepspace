@@ -27,8 +27,8 @@ export function ClaimRows({
   status: React.ReactNode
 }) {
   return (
-    <section aria-label="Claims" className="overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-[22px] py-4">
+    <section aria-label="Claims" className="overflow-hidden panel">
+      <div className="panel-header flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-[22px] py-4">
         <h2 className="m-0 text-base font-semibold">Claims</h2>
         <div className="text-sm text-muted-foreground">{status}</div>
       </div>
@@ -43,7 +43,7 @@ export function ClaimRows({
             aria-pressed={selected}
             onClick={() => onSelect(c.id)}
             className={cn(
-              'flex min-h-16 w-full cursor-pointer flex-wrap items-center gap-x-4 gap-y-3 border-0 border-t border-rule px-[22px] py-3.5 text-left transition-colors',
+              'flex min-h-16 w-full cursor-pointer flex-wrap items-center gap-x-4 gap-y-3 border-0 border-t border-rule first-of-type:border-t-0 px-[22px] py-3.5 text-left transition-colors',
               selected ? tone.row : 'bg-card hover:bg-background',
             )}
           >

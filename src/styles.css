@@ -109,7 +109,8 @@
   --color-support-badge: #1E3A8A;
   --color-quiet: #94A3B8;
   --color-verified: #15803D;
-  --color-rule: #EEF1F4;
+  --color-rule: #E9ECF0;
+  --color-panel-head: #FAFBFC;
   --color-subtle: #EEF2F7;
   --color-ink-soft: #334155;
   --font-sans: 'Geist', 'Helvetica Neue', Helvetica, sans-serif;
@@ -254,4 +255,21 @@
   a, button, [role="button"], input, select, textarea {
     touch-action: manipulation;
   }
+}
+
+/*
+ * Objection surfaces. Every panel gets the same border, radius and a soft
+ * two-layer shadow so sections read as separate objects on the grey canvas.
+ * Panel headers sit on a faint tint with a rule under them. Literal shadow
+ * values on purpose (see the shadow note in the @theme block).
+ */
+@utility panel {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(14, 23, 38, 0.06), 0 6px 16px -4px rgba(14, 23, 38, 0.08);
+}
+@utility panel-header {
+  background-color: var(--color-panel-head);
+  border-bottom: 1px solid var(--color-border);
 }

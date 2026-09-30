@@ -1,77 +1,178 @@
 /**
  * Design direction: "Studio". A bright, plain product page for people who
- * write launch copy. The hero shows the product's own signature element, a
- * message with claims marked like highlighter strokes, instead of a poster.
- * Colour appears only where it carries meaning: orange for pushback, blue for
- * support. Copy is short and literal; no marketing adjectives.
+ * write launch copy for developers. The hero shows the product's own signature
+ * element, a message with claims marked like highlighter strokes. Each section
+ * is a bordered panel on a grey canvas, so the page reads as separate, clear
+ * blocks. Colour appears only where it carries meaning: orange for pushback,
+ * blue for support. Copy is short and literal; no marketing adjectives.
  *
  * Landing page — a STATIC page (no DeepSpace providers, prerendered at build).
  */
 
 import { Link } from 'react-router-dom'
-import { Logo } from '../components/Logo'
+import { ExampleResult, Steps, UseCases } from '../components/landing/Explainer'
 import { SampleMessage } from '../components/landing/SampleMessage'
+import { Logo } from '../components/Logo'
 import { Seo } from '../components/Seo'
 import { seo } from '../seo'
 
-const steps = [
-  { title: 'Split into claims', body: 'Claude breaks your message into 3 to 5 checkable claims, each tied to the exact words it came from. Your team edits and approves them before anything is searched.' },
-  { title: 'Search real discussion', body: 'A background job reads recent Hacker News comments and developer posts on dev.to and GitHub about each claim.' },
-  { title: 'Verify every quote', body: 'Claude picks sentences that push back or support. Code then keeps a quote only if it appears word for word on the page. The rest are shown as removed, with the reason.' },
-  { title: 'Decide together', body: 'Your team marks each quote relevant or off-topic, live, then writes version 2 and compares.' },
-]
+const cta =
+  'inline-flex min-h-11 items-center rounded-[10px] bg-primary px-[18px] font-semibold text-primary-foreground no-underline hover:bg-primary/90'
+
+function Section({ id, title, lead, children }: { id: string; title: string; lead?: string; children: React.ReactNode }) {
+  return (
+    <section aria-labelledby={id} className="border-t border-border py-14">
+      <h2 id={id} className="m-0 text-2xl font-bold tracking-[-0.02em]">
+        {title}
+      </h2>
+      {lead && <p className="m-0 mt-2 max-w-[68ch] text-muted-foreground">{lead}</p>}
+      <div className="mt-7">{children}</div>
+    </section>
+  )
+}
 
 export default function Landing() {
   return (
     <>
       <Seo {...seo} path="/" />
       <div data-testid="static-landing" className="min-h-screen">
-        <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 md:px-8">
-          <span className="flex items-center gap-2.5">
-            <Logo />
-            <span className="text-[17px] font-bold tracking-[-0.02em]">Objection</span>
-          </span>
-          <Link to="/home" className="inline-flex min-h-11 items-center rounded-[10px] bg-primary px-[18px] font-semibold text-primary-foreground no-underline hover:bg-primary/90">
-            Open Objection
-          </Link>
+        <header className="border-b border-border bg-card shadow-[0_1px_3px_rgba(14,23,38,0.06)]">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
+            <span className="flex items-center gap-2.5">
+              <Logo />
+              <span className="text-[17px] font-bold tracking-[-0.02em]">Objection</span>
+            </span>
+            <Link to="/home" className={cta}>
+              Open Objection
+            </Link>
+          </div>
         </header>
 
         <main className="mx-auto max-w-6xl px-4 pb-20 md:px-8">
-          <section className="flex flex-wrap items-center gap-10 py-10 md:py-16">
+          <section className="flex flex-wrap items-center gap-10 py-12 md:py-16">
             <div className="min-w-0 flex-[1_1_340px]">
-              <h1 className="m-0 text-[clamp(34px,5vw,56px)] font-bold leading-[1.08] tracking-[-0.03em]">Put your launch message on trial</h1>
-              <p className="mt-5 max-w-[44ch] text-lg text-muted-foreground">
-                Find out which of your claims developers push back on before you publish. Every objection comes with a real quote and a link to where it was said.
+              <p className="m-0 mb-3 text-sm font-semibold text-push-text">For teams writing launch copy for developers</p>
+              <h1 className="m-0 text-[clamp(34px,5vw,56px)] font-bold leading-[1.08] tracking-[-0.03em]">
+                Put your launch message on trial
+              </h1>
+              <p className="mt-5 max-w-[46ch] text-lg text-muted-foreground">
+                Paste a headline or pitch. Objection checks each claim in it against what developers have actually said online, and shows
+                you where they push back, with real quotes and links.
               </p>
-              <Link to="/home" className="mt-7 inline-flex min-h-11 items-center rounded-[10px] bg-primary px-[18px] font-semibold text-primary-foreground no-underline hover:bg-primary/90">
-                Start a case
-              </Link>
+              <p className="mt-3 max-w-[46ch] text-muted-foreground">
+                Every quote is checked word for word against its source page. Nothing is made up, and your team decides what matters.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center gap-4">
+                <Link to="/home" className={cta}>
+                  Start a case
+                </Link>
+                <a href="#how" className="font-medium text-foreground underline-offset-4 hover:underline">
+                  See how it works
+                </a>
+              </div>
             </div>
             <div className="min-w-0 flex-[1_1_440px]">
               <SampleMessage />
             </div>
           </section>
 
-          <section aria-labelledby="how" className="border-t border-border py-12">
-            <h2 id="how" className="m-0 mb-8 text-2xl font-bold tracking-[-0.02em]">How a trial works</h2>
-            <ol className="m-0 grid list-none gap-x-10 gap-y-8 p-0 md:grid-cols-2">
-              {steps.map((s, i) => (
-                <li key={s.title} className="flex gap-4">
-                  <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg bg-primary text-[13px] font-bold text-primary-foreground">{i + 1}</span>
-                  <div>
-                    <h3 className="m-0 text-base font-semibold">{s.title}</h3>
-                    <p className="m-0 mt-1 text-muted-foreground">{s.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
+          <Section
+            id="problem"
+            title="The problem it solves"
+            lead="Launch copy is full of claims: this is fast, this is easy, developers want this. You usually find out which ones developers reject after you publish, in the comments."
+          >
+            <div className="panel grid overflow-hidden md:grid-cols-2">
+              <div className="p-6">
+                <h3 className="m-0 text-base font-semibold">Without Objection</h3>
+                <ul className="m-0 mt-3 flex list-disc flex-col gap-2 pl-5 text-muted-foreground">
+                  <li>The team argues from opinion about which claims will land.</li>
+                  <li>AI tools write fluent "user feedback" that nobody actually said.</li>
+                  <li>The first real pushback arrives on launch day.</li>
+                </ul>
+              </div>
+              <div className="border-border p-6 max-md:border-t md:border-l">
+                <h3 className="m-0 text-base font-semibold">With Objection</h3>
+                <ul className="m-0 mt-3 flex list-disc flex-col gap-2 pl-5 text-muted-foreground">
+                  <li>Each claim is tested separately against recent developer discussion.</li>
+                  <li>Only quotes found word for word on the source page count as evidence.</li>
+                  <li>You rewrite the weak claim before launch and compare versions.</li>
+                </ul>
+              </div>
+            </div>
+          </Section>
 
-          <section aria-labelledby="never" className="border-t border-border py-12">
-            <h2 id="never" className="m-0 mb-4 text-2xl font-bold tracking-[-0.02em]">What the AI never does</h2>
-            <p className="m-0 max-w-[62ch] text-muted-foreground">
-              It never pretends to be a developer, never invents an opinion, and never has the final word. It splits claims and picks sentences. Code checks every quote, and your team decides what matters. Fewer quotes you can trust, instead of many fluent ones you cannot.
-            </p>
+          <Section
+            id="how"
+            title="How a trial works"
+            lead="Five steps. The AI does two small jobs, code checks its work, and people make the calls."
+          >
+            <Steps />
+          </Section>
+
+          <Section
+            id="output"
+            title="What you get for each claim"
+            lead="A verdict, the counts behind it, and every quote with its source. Removed quotes stay visible, so nothing is hidden."
+          >
+            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <ExampleResult />
+              <ul className="panel m-0 flex list-none flex-col p-0">
+                {[
+                  ['Verdict per claim', 'Mostly pushback, mostly support, mixed, or no discussion found.'],
+                  [
+                    'Verified quotes with links',
+                    'Each one opens the thread it came from, so you can read the context or contact the person.',
+                  ],
+                  ['Removed quotes with reasons', 'Shown struck through, so the team can see what the AI got wrong.'],
+                  ['Team votes, live', 'Everyone on the case sees the same board and marks quotes relevant or off-topic.'],
+                  ['Version compare', 'Rewrite the message and see whether the pushback drops.'],
+                  ['Evidence memory', "Past quotes and votes are reused when a claim comes up again, so the team's judgment builds up."],
+                ].map(([t, b]) => (
+                  <li key={t} className="border-t border-rule px-5 py-3.5 first:border-t-0">
+                    <span className="block font-semibold">{t}</span>
+                    <span className="block text-sm text-muted-foreground">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Section>
+
+          <Section id="when" title="When to use it">
+            <UseCases />
+          </Section>
+
+          <Section id="trust" title="Why you can trust the results" lead="The AI never has the final word.">
+            <div className="panel grid overflow-hidden md:grid-cols-3">
+              {[
+                [
+                  'No personas, no invented opinions',
+                  'The AI only splits claims and picks sentences. It never writes feedback or pretends to be a developer.',
+                ],
+                [
+                  'Checked in code',
+                  'A quote survives only if it appears word for word on the page that was fetched. Clients cannot create or edit quotes.',
+                ],
+                [
+                  'People decide',
+                  'Your team approves claims before anything is searched and votes on every quote. Fewer quotes you can trust beat many you cannot.',
+                ],
+              ].map(([t, b], i) => (
+                <div key={t} className={i ? 'border-border p-6 max-md:border-t md:border-l' : 'p-6'}>
+                  <h3 className="m-0 text-base font-semibold">{t}</h3>
+                  <p className="m-0 mt-2 text-sm text-muted-foreground">{b}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+
+          <section className="panel mt-2 flex flex-wrap items-center justify-between gap-4 p-6">
+            <div>
+              <h2 className="m-0 text-xl font-bold tracking-[-0.02em]">Test your next headline before developers do</h2>
+              <p className="m-0 mt-1 text-muted-foreground">Sign in with GitHub or Google. Each person gets 5 trials a day.</p>
+            </div>
+            <Link to="/home" className={cta}>
+              Start a case
+            </Link>
           </section>
         </main>
       </div>

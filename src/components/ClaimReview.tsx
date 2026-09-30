@@ -28,8 +28,8 @@ export function ClaimReview({ versionId, claims, trialsLeft }: { versionId: stri
   }
 
   return (
-    <section aria-label="Review claims" className="overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-[22px] py-4">
+    <section aria-label="Review claims" className="overflow-hidden panel">
+      <div className="panel-header flex flex-wrap items-center justify-between gap-3 px-[22px] py-4">
         <div>
           <h2 className="m-0 text-base font-semibold">Review claims before the trial</h2>
           <p className="m-0 text-sm text-muted-foreground">

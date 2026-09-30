@@ -25,8 +25,8 @@ export function CompareVersions({
         const vQuotes = quotes.filter((q) => q.data.versionId === v.recordId)
         const total = tally(vQuotes.map((q) => q.data))
         return (
-          <article key={v.recordId} className="overflow-hidden rounded-2xl border border-border bg-card">
-            <div className="px-[22px] py-5">
+          <article key={v.recordId} className="overflow-hidden panel">
+            <div className="panel-header px-[22px] py-5">
               <p className="m-0 mb-2 text-sm font-semibold text-muted-foreground">Version {v.data.number}</p>
               <p className="m-0 text-xl font-semibold leading-snug tracking-[-0.02em]">{v.data.message}</p>
               <p className="m-0 mt-3 text-sm text-muted-foreground">

@@ -4,6 +4,7 @@
 
 import { Link } from 'react-router-dom'
 import { useQuery } from 'deepspace'
+import { Steps } from '../../../../components/landing/Explainer'
 import { NewCaseForm } from '../../../../components/NewCaseForm'
 import type { CaseData, VersionData } from '../../../../types'
 
@@ -31,6 +32,8 @@ export default function CasesPage() {
           Every message your team has put on trial. Everyone on the team sees the same cases, live.
         </p>
       </header>
+      {/* New teams see how a trial works; it steps aside once there are a few cases. */}
+      {status === 'ready' && cases.length < 3 && <Steps className="mb-6" />}
       <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_400px]">
         <section aria-label="Your team's cases" className="min-w-0">
           {status === 'loading' && (
@@ -47,7 +50,7 @@ export default function CasesPage() {
             </p>
           )}
           {status === 'ready' && cases.length > 0 && (
-            <ul className="m-0 list-none overflow-hidden rounded-2xl border border-border bg-card p-0">
+            <ul className="m-0 list-none overflow-hidden panel p-0">
               {cases.map((c) => {
                 const v = latestVersion(c.recordId)
                 return (

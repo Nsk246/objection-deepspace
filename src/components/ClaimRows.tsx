@@ -29,8 +29,8 @@ export function ClaimRows({
   return (
     <section aria-label="Claims" className="overflow-hidden panel">
       <div className="panel-header flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-[22px] py-4">
-        <h2 className="m-0 text-[17px] font-semibold">Claims</h2>
-        <div className="text-[15px] text-muted-foreground">{status}</div>
+        <h2 className="m-0 text-base font-semibold">Claims</h2>
+        <div className="text-sm text-muted-foreground">{status}</div>
       </div>
       {claims.map((c) => {
         const tone = toneOf(verdictOf(c.tally))
@@ -47,12 +47,12 @@ export function ClaimRows({
               selected ? tone.row : 'bg-card hover:bg-background',
             )}
           >
-            <span className={cn('flex h-[26px] w-[26px] items-center justify-center rounded-lg text-[15px] font-bold', tone.badge)}>
+            <span className={cn('flex h-[26px] w-[26px] items-center justify-center rounded-lg text-sm font-bold', tone.badge)}>
               {c.index}
             </span>
             <span className="min-w-0 flex-[1_1_260px]">
               <span className="block font-semibold">{c.text}</span>
-              <span className="block text-[15px] text-muted-foreground">{tallyLine(c.tally)}</span>
+              <span className="block text-sm text-muted-foreground">{tallyLine(c.tally)}</span>
             </span>
             <span aria-hidden="true" className="flex h-1.5 flex-[0_0_160px] overflow-hidden rounded-[3px] bg-rule">
               {total > 0 && (

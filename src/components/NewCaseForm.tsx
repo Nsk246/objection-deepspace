@@ -49,7 +49,7 @@ export function NewCaseForm() {
     }
   }
 
-  const fieldError = (msg: string | null) => (submitted && msg ? <p className="mt-1 text-[15px] text-destructive">{msg}</p> : null)
+  const fieldError = (msg: string | null) => (submitted && msg ? <p className="mt-1 text-sm text-destructive">{msg}</p> : null)
 
   return (
     <form onSubmit={submit} noValidate className="flex flex-col gap-4 panel p-6">
@@ -65,7 +65,7 @@ export function NewCaseForm() {
           id="case-audience"
           value={audience}
           maxLength={config.limits.audienceMaxChars}
-          placeholder="Solo developers shipping with coding agents"
+          placeholder="Solo developers using coding agents"
           onChange={(e) => setAudience(e.target.value)}
           aria-invalid={submitted && !!problems.audience}
         />
@@ -82,7 +82,7 @@ export function NewCaseForm() {
           onChange={(e) => setMessage(e.target.value)}
           aria-invalid={submitted && !!problems.message}
         />
-        <p className="mt-1 text-[15px] text-muted-foreground">
+        <p className="mt-1 text-sm text-muted-foreground">
           {message.length} of {config.limits.messageMaxChars} characters. Claude splits it into claims next; nothing is searched until your team approves them.
         </p>
         {fieldError(problems.message)}

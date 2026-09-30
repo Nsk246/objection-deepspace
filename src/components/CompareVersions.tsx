@@ -27,9 +27,9 @@ export function CompareVersions({
         return (
           <article key={v.recordId} className="overflow-hidden panel">
             <div className="panel-header px-[22px] py-5">
-              <p className="m-0 mb-2 text-[15px] font-semibold text-muted-foreground">Version {v.data.number}</p>
+              <p className="m-0 mb-2 text-sm font-semibold text-muted-foreground">Version {v.data.number}</p>
               <p className="m-0 text-xl font-semibold leading-snug tracking-[-0.02em]">{v.data.message}</p>
-              <p className="m-0 mt-3 text-[15px] text-muted-foreground">
+              <p className="m-0 mt-3 text-sm text-muted-foreground">
                 {v.data.status === 'done' ? `In total: ${tallyLine(total)}` : 'Not tried yet'}
               </p>
             </div>
@@ -39,12 +39,12 @@ export function CompareVersions({
                 const tone = toneOf(verdictOf(t))
                 return (
                   <li key={c.recordId} className="flex items-start gap-3 border-t border-rule px-[22px] py-3.5">
-                    <span className={cn('flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg text-[15px] font-bold', tone.badge)}>
+                    <span className={cn('flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg text-sm font-bold', tone.badge)}>
                       {c.data.index}
                     </span>
                     <span className="min-w-0">
                       <span className="block font-semibold">{c.data.text}</span>
-                      <span className="block text-[15px] text-muted-foreground">{tallyLine(t)}</span>
+                      <span className="block text-sm text-muted-foreground">{tallyLine(t)}</span>
                     </span>
                   </li>
                 )

@@ -49,11 +49,11 @@ export function EvidenceList({
   return (
     <aside aria-label={`Evidence for claim ${claim.index}`} className="flex min-w-0 flex-col overflow-hidden panel lg:sticky lg:top-6 lg:max-h-[calc(100vh-48px)]">
       <div className="panel-header shrink-0 px-[22px] pt-5 pb-4">
-        <p className={cn('m-0 mb-1 text-[15px] font-semibold', tone.label)}>
+        <p className={cn('m-0 mb-1 text-sm font-semibold', tone.label)}>
           Claim {claim.index}, {VERDICT_LABEL[verdict]}
         </p>
         <h2 className="m-0 text-xl font-semibold leading-snug tracking-[-0.015em]">{claim.text}</h2>
-        <p className="m-0 mt-2 text-[15px] text-muted-foreground">
+        <p className="m-0 mt-2 text-sm text-muted-foreground">
           Verified means the sentence was found word for word on the linked page. Removed quotes were suggested by the AI but failed that check.
         </p>
         <div role="group" aria-label="Filter quotes" className="mt-3.5 flex flex-wrap gap-1.5">
@@ -64,7 +64,7 @@ export function EvidenceList({
               aria-pressed={filter === p.id}
               onClick={() => setFilter(p.id)}
               className={cn(
-                'min-h-9 cursor-pointer rounded-[18px] px-3 text-[15px]',
+                'min-h-9 cursor-pointer rounded-[18px] px-3 text-sm',
                 filter === p.id ? 'bg-primary font-medium text-primary-foreground' : 'border border-border bg-card text-foreground hover:bg-background',
               )}
             >
@@ -75,7 +75,7 @@ export function EvidenceList({
       </div>
 
       {shown.length === 0 ? (
-        <p className="m-0 px-[22px] py-6 text-[15px] text-muted-foreground">
+        <p className="m-0 px-[22px] py-6 text-sm text-muted-foreground">
           {quotes.length === 0
             ? 'No developer discussion found. Either few developers care, or the claim is worded differently from how they talk. Reword it and run the trial again.'
             : 'Nothing in this filter.'}
@@ -115,11 +115,11 @@ function QuoteItem({ quote, votes }: { quote: RecordData<QuoteData>; votes: Reco
   if (q.status === 'removed') {
     return (
       <li className="border-t border-rule bg-background px-[22px] py-[18px]">
-        <div className="mb-2 flex flex-wrap items-center gap-2 text-[15px] text-muted-foreground">
+        <div className="mb-2 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <span className="rounded-md bg-border px-2 py-0.5 font-semibold text-ink-soft">Removed</span>
           {q.removeReason}
         </div>
-        <blockquote className="m-0 text-[17px] leading-relaxed text-muted-foreground line-through">{q.text}</blockquote>
+        <blockquote className="m-0 text-base leading-relaxed text-muted-foreground line-through">{q.text}</blockquote>
       </li>
     )
   }
@@ -127,7 +127,7 @@ function QuoteItem({ quote, votes }: { quote: RecordData<QuoteData>; votes: Reco
   const stanceBadge = q.stance === 'push' ? 'bg-push-tint text-push-badge' : 'bg-support-tint text-support-badge'
   return (
     <li className="border-t border-rule px-[22px] py-[18px]">
-      <div className="mb-2 flex flex-wrap items-center gap-2 text-[15px] text-muted-foreground">
+      <div className="mb-2 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
         <span className={cn('rounded-md px-2 py-0.5 font-semibold', stanceBadge)}>{STANCE_LABEL[q.stance]}</span>
         <span>
           {q.site}
@@ -139,7 +139,7 @@ function QuoteItem({ quote, votes }: { quote: RecordData<QuoteData>; votes: Reco
         </span>
         {q.reusedFrom && <span>From an earlier trial</span>}
       </div>
-      <blockquote className="m-0 text-[17px] leading-relaxed">{q.text}</blockquote>
+      <blockquote className="m-0 text-base leading-relaxed">{q.text}</blockquote>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {(['relevant', 'off_topic'] as const).map((value) => (
           <button
@@ -149,14 +149,14 @@ function QuoteItem({ quote, votes }: { quote: RecordData<QuoteData>; votes: Reco
             aria-pressed={mine?.data.value === value}
             onClick={() => vote(value)}
             className={cn(
-              'min-h-9 cursor-pointer rounded-lg px-3 text-[15px] disabled:cursor-not-allowed disabled:opacity-50',
+              'min-h-9 cursor-pointer rounded-lg px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50',
               mine?.data.value === value ? 'bg-primary font-semibold text-primary-foreground' : 'border border-border bg-card hover:bg-background',
             )}
           >
             {value === 'relevant' ? 'Relevant' : 'Off-topic'} {count(value)}
           </button>
         ))}
-        <a href={q.sourceUrl} target="_blank" rel="noreferrer noopener" className="ml-auto text-[15px] font-medium text-support hover:text-foreground">
+        <a href={q.sourceUrl} target="_blank" rel="noreferrer noopener" className="ml-auto text-sm font-medium text-support hover:text-foreground">
           Open thread
         </a>
       </div>

@@ -31,8 +31,8 @@ export function ClaimReview({ versionId, claims, trialsLeft }: { versionId: stri
     <section aria-label="Review claims" className="overflow-hidden panel">
       <div className="panel-header flex flex-wrap items-center justify-between gap-3 px-[22px] py-4">
         <div>
-          <h2 className="m-0 text-[17px] font-semibold">Review claims before the trial</h2>
-          <p className="m-0 text-[15px] text-muted-foreground">
+          <h2 className="m-0 text-base font-semibold">Review claims before the trial</h2>
+          <p className="m-0 text-sm text-muted-foreground">
             Reword anything that is not quite what the message says. Only approved claims are searched.
           </p>
         </div>
@@ -41,7 +41,7 @@ export function ClaimReview({ versionId, claims, trialsLeft }: { versionId: stri
         </Button>
       </div>
       {trialsLeft <= 0 && (
-        <p className="m-0 border-t border-rule px-[22px] py-3 text-[15px] text-muted-foreground">
+        <p className="m-0 border-t border-rule px-[22px] py-3 text-sm text-muted-foreground">
           You have used today's trials. Your teammates can still run this one, or try again tomorrow.
         </p>
       )}
@@ -75,7 +75,7 @@ function ClaimEditor({ claim }: { claim: RecordData<ClaimData> }) {
   return (
     <li className={cn('border-t border-rule px-[22px] py-4', dropped && 'bg-background')}>
       <div className="flex items-start gap-4">
-        <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg bg-border text-[15px] font-bold text-ink-soft">
+        <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg bg-border text-sm font-bold text-ink-soft">
           {c.index}
         </span>
         <div className="flex min-w-0 flex-1 flex-col gap-3 md:flex-row md:items-start md:justify-between">
@@ -89,7 +89,7 @@ function ClaimEditor({ claim }: { claim: RecordData<ClaimData> }) {
                 <div>
                   <Label htmlFor={`query-${claim.recordId}`}>Search words</Label>
                   <Input id={`query-${claim.recordId}`} value={query} maxLength={120} onChange={(e) => setQuery(e.target.value)} />
-                  <p className="mt-1 text-[15px] text-muted-foreground">The words developers would use when they talk about this.</p>
+                  <p className="mt-1 text-sm text-muted-foreground">The words developers would use when they talk about this.</p>
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" disabled={!ready || !text.trim()} onClick={save}>
@@ -103,7 +103,7 @@ function ClaimEditor({ claim }: { claim: RecordData<ClaimData> }) {
             ) : (
               <>
                 <p className={cn('m-0 font-semibold', dropped && 'text-muted-foreground line-through')}>{c.text}</p>
-                <dl className="m-0 mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-[15px] text-muted-foreground">
+                <dl className="m-0 mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-sm text-muted-foreground">
                   <dt>From</dt>
                   <dd className="m-0">“{c.span}”</dd>
                   <dt>Search words</dt>

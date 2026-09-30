@@ -268,9 +268,9 @@ function ToastItem({ toast, onDismiss }: ToastItemProps): React.ReactElement {
       <span className={`absolute inset-y-0 left-0 w-[3px] ${accent}`} aria-hidden />
       <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${icon}`} />
       <div className="flex-1 min-w-0">
-        <p className="text-[13px] font-medium leading-tight">{toast.title}</p>
+        <p className="text-sm font-medium leading-tight">{toast.title}</p>
         {toast.description && (
-          <p className="mt-0.5 text-[15px] leading-snug text-muted-foreground">
+          <p className="mt-0.5 text-sm leading-snug text-muted-foreground">
             {toast.description}
           </p>
         )}

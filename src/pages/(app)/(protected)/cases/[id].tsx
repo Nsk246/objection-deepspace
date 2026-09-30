@@ -56,7 +56,7 @@ export default function CasePage() {
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-card px-4 py-[18px] shadow-[0_1px_3px_rgba(14,23,38,0.06)] md:px-8">
         <div className="min-w-0">
           <h1 className="m-0 text-[22px] font-bold tracking-[-0.02em]">{caseRow.data.title}</h1>
-          <p className="m-0 mt-0.5 text-[15px] text-muted-foreground">Tested against {caseRow.data.audience}</p>
+          <p className="m-0 mt-0.5 text-sm text-muted-foreground">Tested against {caseRow.data.audience}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3.5">
           <PresenceAvatars caseId={caseId} />
@@ -189,10 +189,10 @@ function VersionBoard({
   const messagePanel = (
     <article aria-labelledby="message-heading" className="panel">
       <div className="panel-header flex flex-wrap items-baseline justify-between gap-2 rounded-t-[15px] px-[22px] py-3.5">
-        <h2 id="message-heading" className="m-0 text-[15px] font-semibold text-muted-foreground">
+        <h2 id="message-heading" className="m-0 text-sm font-semibold text-muted-foreground">
           Message under test
         </h2>
-        <span className="text-[15px] text-muted-foreground">Version {version.number}</span>
+        <span className="text-sm text-muted-foreground">Version {version.number}</span>
       </div>
       <div className="px-[22px] py-6 md:px-8 md:py-7">
         <MarkedMessage message={version.message} claims={marked} selectedId={reviewing ? null : selected?.id} onSelect={setSelectedId} />
@@ -296,7 +296,7 @@ function NewVersionDialog({
       </Modal.Header>
       <Modal.Body>
         <Textarea aria-label="Message" rows={5} value={message} maxLength={config.limits.messageMaxChars} onChange={(e) => setMessage(e.target.value)} />
-        {unchanged && <p className="mt-1 text-[15px] text-muted-foreground">Change the wording to create a new version.</p>}
+        {unchanged && <p className="mt-1 text-sm text-muted-foreground">Change the wording to create a new version.</p>}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="ghost" onClick={onClose}>

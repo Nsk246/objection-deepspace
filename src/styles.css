@@ -113,7 +113,20 @@
   --color-panel-head: #FAFBFC;
   --color-subtle: #EEF2F7;
   --color-ink-soft: #1F2937;
-  --font-sans: 'Geist', 'Helvetica Neue', Helvetica, sans-serif;
+  --font-sans: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /*
+   * Type scale. Two sizes carry all non-heading text: text-sm (15px) for
+   * labels, counts and captions; text-base (17px) for anything you read.
+   * text-lg is the hero intro only. text-xs is for avatar initials.
+   */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.55;
 
   /* Animations */
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
@@ -188,11 +201,12 @@
   }
 
   body {
-    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.5;
+    font-family: var(--font-sans);
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 14px;
+    /* Reading size. The type scale in @theme keeps everything else on two steps: 15px labels, 17px text. */
+    font-size: var(--text-base);
     color: var(--color-foreground);
   }
 

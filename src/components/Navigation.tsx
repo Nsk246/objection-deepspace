@@ -48,7 +48,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between gap-2 px-4 py-3 md:px-2 md:py-0">
           <Link to="/cases" className="flex items-center gap-2.5 text-foreground no-underline">
             <Logo />
-            <span className="text-[17px] font-bold tracking-[-0.02em]">Objection</span>
+            <span className="text-base font-bold tracking-[-0.02em]">Objection</span>
           </Link>
           <button
             className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground md:hidden"
@@ -87,7 +87,7 @@ export default function Navigation() {
                   render={
                     <button
                       aria-label="Account menu"
-                      className="flex min-h-11 w-full items-center gap-2.5 rounded-lg px-2 text-left text-[15px] hover:bg-background"
+                      className="flex min-h-11 w-full items-center gap-2.5 rounded-lg px-2 text-left text-sm hover:bg-background"
                     >
                       <Avatar className="h-7 w-7">
                         <AvatarImage src={user.imageUrl ?? undefined} referrerPolicy="no-referrer" />
@@ -139,13 +139,13 @@ function CaseLinks({ pathname }: { pathname: string }) {
 
   return (
     <div className="flex flex-col gap-0.5">
-      <p className="mx-2 mb-1.5 text-[15px] font-medium text-muted-foreground">
+      <p className="mx-2 mb-1.5 text-sm font-medium text-muted-foreground">
         <Link to="/cases" className="text-muted-foreground no-underline hover:text-foreground">
           Cases
         </Link>
       </p>
       {status === 'loading' && [0, 1, 2].map((i) => <div key={i} className="mx-2 my-1 h-8 animate-pulse rounded-md bg-muted" />)}
-      {status === 'ready' && cases.length === 0 && <p className="mx-2 text-[15px] text-muted-foreground">No cases yet.</p>}
+      {status === 'ready' && cases.length === 0 && <p className="mx-2 text-sm text-muted-foreground">No cases yet.</p>}
       {cases.map((c) => {
         const active = pathname === `/cases/${c.recordId}`
         return (
@@ -158,7 +158,7 @@ function CaseLinks({ pathname }: { pathname: string }) {
               active ? 'bg-subtle font-semibold text-foreground' : 'text-ink-soft hover:bg-background',
             )}
           >
-            <span className="truncate">{c.data.title}</span>
+            <span className="line-clamp-2 min-w-0 py-2 leading-snug">{c.data.title}</span>
             {latest.has(c.recordId) && <span className="text-sm font-medium text-muted-foreground">v{latest.get(c.recordId)}</span>}
           </Link>
         )
@@ -171,7 +171,7 @@ function TrialsNote() {
   const { trialsLeft, loading } = useTrialsLeft()
   if (loading) return null
   return (
-    <p className="m-0 rounded-[10px] border border-border bg-background p-3 text-[15px] text-muted-foreground">
+    <p className="m-0 rounded-[10px] border border-border bg-background p-3 text-sm text-muted-foreground">
       {trialsLeft} of {config.limits.trialsPerUserPerDay} trials left today. Trials search the web and run AI, so each person has a daily limit.
     </p>
   )

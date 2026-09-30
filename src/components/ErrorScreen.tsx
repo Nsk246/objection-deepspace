@@ -118,13 +118,13 @@ export function ErrorScreen({ error, onReset }: ErrorScreenProps) {
           {decoded?.title ?? 'Something went wrong'}
         </h1>
         {decoded?.explanation && (
-          <p className="mt-1.5 text-[15px] text-muted-foreground">{decoded.explanation}</p>
+          <p className="mt-1.5 text-sm text-muted-foreground">{decoded.explanation}</p>
         )}
 
         {decoded?.hint && (
           <div className="mt-4 rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-left">
-            <p className="text-[15px] font-medium text-warning">How to fix</p>
-            <p className="mt-1 text-[15px] text-muted-foreground">{decoded.hint}</p>
+            <p className="text-sm font-medium text-warning">How to fix</p>
+            <p className="mt-1 text-sm text-muted-foreground">{decoded.hint}</p>
           </div>
         )}
 
@@ -146,7 +146,7 @@ export function ErrorScreen({ error, onReset }: ErrorScreenProps) {
         <div className="mt-6 flex items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-[15px] font-medium text-primary-foreground shadow transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-opacity hover:opacity-90"
           >
             <RefreshCw className="h-4 w-4" aria-hidden />
             Reload
@@ -156,7 +156,7 @@ export function ErrorScreen({ error, onReset }: ErrorScreenProps) {
               href={decoded.docsUrl}
               target="_blank"
               rel="noreferrer"
-              className="text-[15px] text-muted-foreground underline-offset-4 hover:underline"
+              className="text-sm text-muted-foreground underline-offset-4 hover:underline"
             >
               React error #{decoded.code} reference
             </a>

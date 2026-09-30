@@ -22,13 +22,13 @@ export default function HomePage() {
     <div className="mx-auto max-w-6xl px-4 py-12 md:px-8">
       <div className="flex flex-wrap items-center gap-10">
         <div className="min-w-0 flex-[1_1_340px]">
-          <p className="m-0 mb-3 text-[15px] font-semibold text-push-text">
+          <p className="m-0 mb-3 text-sm font-semibold text-push-text">
             For teams building developer tools, APIs, SDKs and coding agents
           </p>
           <h1 className="m-0 text-[clamp(30px,4vw,44px)] font-bold leading-tight tracking-[-0.025em]">
             Test your dev tool's pitch against real developers
           </h1>
-          <p className="mt-4 max-w-[48ch] text-xl text-foreground">
+          <p className="mt-4 max-w-[48ch] text-lg text-foreground">
             Objection splits your launch copy into claims, finds what programmers said about each one on Hacker News, dev.to and GitHub, and
             checks every quote against the page it came from. Your team decides what counts.
           </p>

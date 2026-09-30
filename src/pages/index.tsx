@@ -40,7 +40,7 @@ export default function Landing() {
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
             <span className="flex items-center gap-2.5">
               <Logo />
-              <span className="text-[17px] font-bold tracking-[-0.02em]">Objection</span>
+              <span className="text-base font-bold tracking-[-0.02em]">Objection</span>
             </span>
             <Link to="/home" className={cta}>
               Open Objection
@@ -51,22 +51,22 @@ export default function Landing() {
         <main className="mx-auto max-w-6xl px-4 pb-20 md:px-8">
           <section className="flex flex-wrap items-center gap-10 py-12 md:py-16">
             <div className="min-w-0 flex-[1.3_1_480px]">
-              <p className="m-0 mb-3 text-[15px] font-semibold text-push-text">
+              <p className="m-0 mb-3 text-sm font-semibold text-push-text">
                 For teams building developer tools, APIs, SDKs and coding agents
               </p>
               <h1 className="m-0 text-[clamp(34px,4.4vw,52px)] font-bold leading-[1.08] tracking-[-0.03em]">
                 Test your dev tool's pitch against real developers
               </h1>
-              <p className="mt-5 max-w-[48ch] text-xl text-foreground">
+              <p className="mt-5 max-w-[48ch] text-lg text-foreground">
                 Paste your landing page headline, Show HN post or README intro. Objection checks each claim against what programmers are
                 saying on Hacker News, dev.to and GitHub, and shows where they push back, with real quotes and links.
               </p>
-              <p className="mt-3 max-w-[48ch] text-[17px] text-muted-foreground">
+              <p className="mt-3 max-w-[48ch] text-base text-muted-foreground">
                 Every quote is checked word for word against its source page. Nothing is made up, and your team decides what matters.
               </p>
               <ul aria-label="Built for" className="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
                 {['Devtool founders', 'DevRel', 'Developer marketing', 'Open source maintainers'].map((who) => (
-                  <li key={who} className="rounded-full border border-border bg-card px-3 py-1 text-[15px] font-medium text-foreground">
+                  <li key={who} className="rounded-full border border-border bg-card px-3 py-1 text-sm font-medium text-foreground">
                     {who}
                   </li>
                 ))}
@@ -92,7 +92,7 @@ export default function Landing() {
           >
             <div className="panel grid overflow-hidden md:grid-cols-2">
               <div className="p-6">
-                <h3 className="m-0 text-[17px] font-semibold">Without Objection</h3>
+                <h3 className="m-0 text-base font-semibold">Without Objection</h3>
                 <ul className="m-0 mt-3 flex list-disc flex-col gap-2 pl-5 text-muted-foreground">
                   <li>The team argues from opinion about which claims will land.</li>
                   <li>AI tools write fluent "user feedback" that nobody actually said.</li>
@@ -100,7 +100,7 @@ export default function Landing() {
                 </ul>
               </div>
               <div className="border-border p-6 max-md:border-t md:border-l">
-                <h3 className="m-0 text-[17px] font-semibold">With Objection</h3>
+                <h3 className="m-0 text-base font-semibold">With Objection</h3>
                 <ul className="m-0 mt-3 flex list-disc flex-col gap-2 pl-5 text-muted-foreground">
                   <li>Each claim is tested separately against recent developer discussion.</li>
                   <li>Only quotes found word for word on the source page count as evidence.</li>
@@ -139,7 +139,7 @@ export default function Landing() {
                 ].map(([t, b]) => (
                   <li key={t} className="border-t border-rule px-5 py-3.5 first:border-t-0">
                     <span className="block font-semibold">{t}</span>
-                    <span className="block text-[15px] text-muted-foreground">{b}</span>
+                    <span className="block text-base text-muted-foreground">{b}</span>
                   </li>
                 ))}
               </ul>
@@ -167,8 +167,8 @@ export default function Landing() {
                 ],
               ].map(([t, b], i) => (
                 <div key={t} className={i ? 'border-border p-6 max-md:border-t md:border-l' : 'p-6'}>
-                  <h3 className="m-0 text-[17px] font-semibold">{t}</h3>
-                  <p className="m-0 mt-2 text-[15px] text-muted-foreground">{b}</p>
+                  <h3 className="m-0 text-base font-semibold">{t}</h3>
+                  <p className="m-0 mt-2 text-base text-muted-foreground">{b}</p>
                 </div>
               ))}
             </div>

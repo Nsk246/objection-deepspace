@@ -16,7 +16,7 @@ const VARIANTS: Record<Variant, string> = {
 
 const SIZES: Record<Size, string> = {
   default: 'px-2.5 py-0.5 text-xs',
-  sm: 'px-2 py-px text-[10px]',
+  sm: 'px-2 py-px text-xs',
   lg: 'px-3 py-1 text-sm',
 }
 

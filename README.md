@@ -1,6 +1,8 @@
 # Objection
 
-Put your launch message on trial before real developers do. Every objection comes with receipts.
+Test your developer tool's pitch against real developers before you launch. Every objection comes with receipts.
+
+For teams launching developer tools, APIs, SDKs and coding agents: founders, DevRel and developer marketing.
 
 A team pastes a headline or pitch and names the audience. Objection splits the message into claims, finds recent developer discussion about each claim, pulls out exact sentences that push back on or support it, **checks in code that every quote is really on the source page**, and lets the team mark each quote Relevant or Off-topic together, live. Then they write version 2 and compare.
 
@@ -11,7 +13,7 @@ Built on [DeepSpace](https://docs.deep.space) (SDK 0.34.0).
 1. **Case.** Message under test plus the audience.
 2. **Split into claims** (server action `splitClaims`). Claude returns 3 to 5 claims, each with the exact span of the message it came from. Code drops any claim whose span is not in the message.
 3. **Human checkpoint.** The team rewords, approves or drops claims. Nothing paid runs yet.
-4. **Run trial** (server action `startTrial`, then job `run-trial`). Per claim: reuse fresh team evidence, or search Hacker News and dev.to/GitHub, extract sentences with a stance, and verify each one word for word. Records appear live with job progress.
+4. **Run trial** (server action `startTrial`, then job `run-trial`). Per claim: reuse fresh team evidence, or search Hacker News comments plus dev.to posts and GitHub issues, discussions and pull requests (project READMEs are excluded: they are self-description, not experience). Extract sentences with a stance, keep only those about the claim itself, and verify each one word for word. Records appear live with job progress.
 5. **Review together.** Everyone sees the same board and votes. Removed quotes stay visible, struck through, with the reason.
 6. **New version and compare.**
 
@@ -21,7 +23,7 @@ Built on [DeepSpace](https://docs.deep.space) (SDK 0.34.0).
 |---|---|---|
 | Split claims | Claude (`claude-sonnet-5`) | Span must be in the message (`isExactSpan`); team approves |
 | Find pages | Plain code | Recency window, developer venues only |
-| Pick quotes | Claude (`claude-haiku-4-5`) | Quote must be on the page word for word (`isVerbatim`) |
+| Pick quotes | Claude (`claude-haiku-4-5`) | Only developers' own experience or opinion, directly about the claim, with a one-line reason shown on the board; then the quote must be on the page word for word (`isVerbatim`, Markdown and HTML ignored) |
 | Decide relevance | The team | Votes, one per person per quote |
 
 ## DeepSpace features used

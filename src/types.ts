@@ -47,6 +47,8 @@ export interface QuoteData {
   postedAt?: string
   fetchedAt: string
   reusedFrom?: string
+  /** The extractor's one-line reason the quote bears on the claim. */
+  why?: string
 }
 
 export interface VoteData {

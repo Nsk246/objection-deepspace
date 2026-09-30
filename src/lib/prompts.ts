@@ -43,6 +43,8 @@ export const extractResultSchema = z.object({
     z.object({
       text: z.string().describe('One or two full sentences copied exactly from the page'),
       stance: z.enum(['push', 'support']).describe('push = disagrees with or complicates the claim; support = agrees'),
+      direct: z.boolean().describe('true only if the sentence is about the claim itself, not a nearby topic'),
+      why: z.string().describe('One short sentence: how this bears on the claim'),
     }),
   ),
 })
@@ -54,6 +56,8 @@ Rules:
 - Copy sentences exactly as they appear in the page text. Never paraphrase, shorten, fix spelling, or merge sentences. Code will reject any quote that is not on the page word for word.
 - Only pick sentences where a developer states their own experience or opinion about the claim. Skip product descriptions, READMEs, feature lists, documentation, changelogs and code. If nothing qualifies, return an empty list.
 - Each quote must make sense on its own to someone who has not read the page.
+- Set "direct" to true only when the sentence is about the claim itself. A sentence about a related topic (for example agent routing, when the claim is about code review) is not direct.
+- "why" is one short plain sentence a teammate can read, for example: "Says they review every agent-written change before merging." 
 - Judge stance against the claim exactly as written:
   - "support": the sentence says or shows the claim is true.
   - "push": the sentence says or shows the claim is false, overstated, or does not hold in practice.

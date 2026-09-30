@@ -44,8 +44,9 @@ vi.mock('./lib/sources', () => ({ searchHackerNews: () => hn(), searchExa: async
 
 const extract = vi.fn(async () => ({
   quotes: [
-    { text: 'The agent gets me to a demo in an afternoon, but auth took two more weeks.', stance: 'push' },
-    { text: 'Coding agents cannot handle authentication at all.', stance: 'push' },
+    { text: 'The agent gets me to a demo in an afternoon, but auth took two more weeks.', stance: 'push', direct: true, why: 'Demo fast, production slow.' },
+    { text: 'Coding agents cannot handle authentication at all.', stance: 'push', direct: true, why: 'Invented.' },
+    { text: 'I tried it for a month.', stance: 'support', direct: false, why: 'Not about the claim.' },
   ],
 }))
 vi.mock('./lib/ai', () => ({ extractQuotes: () => extract() }))
@@ -85,6 +86,9 @@ describe('run-trial', () => {
       expect.objectContaining({ status: 'removed', removeReason: 'Not on the source page', text: 'Coding agents cannot handle authentication at all.' }),
     )
     expect(store.versions[0].data).toMatchObject({ status: 'done', pagesRead: 1 })
+    // The indirect sentence is dropped before verification, not stored as removed.
+    expect(quotes.find((q) => q.text === 'I tried it for a month.')).toBeUndefined()
+    expect(quotes.find((q) => q.status === 'kept')).toMatchObject({ why: 'Demo fast, production slow.' })
   })
 
   it('reuses fresh verified quotes for the same claim instead of searching again', async () => {

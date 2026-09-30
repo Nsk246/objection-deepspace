@@ -101,6 +101,7 @@ export const quotesSchema: CollectionSchema = {
     text('fetchedAt'),
     // Set when this quote was carried over from an earlier trial (evidence memory).
     text('reusedFrom'),
+    text('why'),
   ],
   permissions: serverWritten,
 }

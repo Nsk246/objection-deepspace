@@ -98,7 +98,8 @@ async function runTrial(versionId: string, db: CronContext, env: Env, ctx: JobCo
         console.warn('[run-trial] extract failed for', page.url, err)
         return { quotes: [] }
       })
-      for (const q of extracted.quotes) {
+      // Only sentences about the claim itself; near-misses are dropped before verification.
+      for (const q of extracted.quotes.filter((x) => x.direct !== false)) {
         if (keptForClaim >= config.quotes.maxPerClaim) break
         const reason = rejectionReason(q.text, page.text)
         const quote: QuoteData = {
@@ -114,6 +115,7 @@ async function runTrial(versionId: string, db: CronContext, env: Env, ctx: JobCo
           site: page.site,
           postedAt: page.postedAt ?? '',
           fetchedAt: new Date().toISOString(),
+          why: q.why?.slice(0, 200) ?? '',
         }
         await db.records.create('quotes', { ...quote })
         if (reason) removed++

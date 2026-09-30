@@ -140,6 +140,7 @@ function QuoteItem({ quote, votes }: { quote: RecordData<QuoteData>; votes: Reco
         {q.reusedFrom && <span>From an earlier trial</span>}
       </div>
       <blockquote className="m-0 text-base leading-relaxed">{q.text}</blockquote>
+      {q.why && <p className="m-0 mt-2 text-sm text-muted-foreground">Why it counts: {q.why}</p>}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {(['relevant', 'off_topic'] as const).map((value) => (
           <button

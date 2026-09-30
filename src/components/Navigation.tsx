@@ -87,11 +87,11 @@ export default function Navigation() {
                   render={
                     <button
                       aria-label="Account menu"
-                      className="flex min-h-11 w-full items-center gap-2.5 rounded-lg px-2 text-left text-sm hover:bg-background"
+                      className="flex min-h-11 w-full items-center gap-2.5 rounded-lg px-2 text-left text-[15px] hover:bg-background"
                     >
                       <Avatar className="h-7 w-7">
                         <AvatarImage src={user.imageUrl ?? undefined} referrerPolicy="no-referrer" />
-                        <AvatarFallback className="text-[11px]">{(user.name?.[0] ?? user.email?.[0] ?? '?').toUpperCase()}</AvatarFallback>
+                        <AvatarFallback className="text-xs">{(user.name?.[0] ?? user.email?.[0] ?? '?').toUpperCase()}</AvatarFallback>
                       </Avatar>
                       <span data-testid="nav-user-name" className="min-w-0 truncate text-foreground">
                         {user.name || user.email}
@@ -102,7 +102,7 @@ export default function Navigation() {
                 <DropdownMenuContent align="start" className="w-56">
                   <DropdownMenuLabel>
                     <div className="truncate font-medium text-foreground">{user.name || 'Signed in'}</div>
-                    <div data-testid="nav-user-email" className="truncate text-xs font-normal text-muted-foreground">
+                    <div data-testid="nav-user-email" className="truncate text-sm font-normal text-muted-foreground">
                       {user.email}
                     </div>
                   </DropdownMenuLabel>
@@ -139,13 +139,13 @@ function CaseLinks({ pathname }: { pathname: string }) {
 
   return (
     <div className="flex flex-col gap-0.5">
-      <p className="mx-2 mb-1.5 text-[13px] font-medium text-muted-foreground">
+      <p className="mx-2 mb-1.5 text-[15px] font-medium text-muted-foreground">
         <Link to="/cases" className="text-muted-foreground no-underline hover:text-foreground">
           Cases
         </Link>
       </p>
       {status === 'loading' && [0, 1, 2].map((i) => <div key={i} className="mx-2 my-1 h-8 animate-pulse rounded-md bg-muted" />)}
-      {status === 'ready' && cases.length === 0 && <p className="mx-2 text-sm text-muted-foreground">No cases yet.</p>}
+      {status === 'ready' && cases.length === 0 && <p className="mx-2 text-[15px] text-muted-foreground">No cases yet.</p>}
       {cases.map((c) => {
         const active = pathname === `/cases/${c.recordId}`
         return (
@@ -159,7 +159,7 @@ function CaseLinks({ pathname }: { pathname: string }) {
             )}
           >
             <span className="truncate">{c.data.title}</span>
-            {latest.has(c.recordId) && <span className="text-xs font-medium text-muted-foreground">v{latest.get(c.recordId)}</span>}
+            {latest.has(c.recordId) && <span className="text-sm font-medium text-muted-foreground">v{latest.get(c.recordId)}</span>}
           </Link>
         )
       })}
@@ -171,7 +171,7 @@ function TrialsNote() {
   const { trialsLeft, loading } = useTrialsLeft()
   if (loading) return null
   return (
-    <p className="m-0 rounded-[10px] border border-border bg-background p-3 text-[13px] text-muted-foreground">
+    <p className="m-0 rounded-[10px] border border-border bg-background p-3 text-[15px] text-muted-foreground">
       {trialsLeft} of {config.limits.trialsPerUserPerDay} trials left today. Trials search the web and run AI, so each person has a daily limit.
     </p>
   )

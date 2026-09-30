@@ -270,7 +270,7 @@ function ToastItem({ toast, onDismiss }: ToastItemProps): React.ReactElement {
       <div className="flex-1 min-w-0">
         <p className="text-[13px] font-medium leading-tight">{toast.title}</p>
         {toast.description && (
-          <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
+          <p className="mt-0.5 text-[15px] leading-snug text-muted-foreground">
             {toast.description}
           </p>
         )}

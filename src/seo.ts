@@ -22,8 +22,8 @@
 declare const __DEEPSPACE_SITE_ORIGIN__: string | undefined
 
 export const seo = {
-  title: 'Objection | Test launch messages against real developer discussion',
-  description: 'Split your launch message into claims, find what developers said about each one, and keep only quotes verified word for word. Decide together.',
+  title: 'Objection | Test your developer tool pitch against real developers',
+  description: 'For teams launching developer tools: check each claim in your pitch against Hacker News, dev.to and GitHub discussion, with quotes verified word for word.',
   /** Public origin for canonical URLs, og:url, and the sitemap — no trailing
    *  slash. Replace with the custom domain once one is attached, e.g.
    *  'https://www.example.com'. */

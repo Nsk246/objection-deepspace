@@ -22,10 +22,15 @@ export default function HomePage() {
     <div className="mx-auto max-w-6xl px-4 py-12 md:px-8">
       <div className="flex flex-wrap items-center gap-10">
         <div className="min-w-0 flex-[1_1_340px]">
-          <h1 className="m-0 text-[clamp(30px,4vw,44px)] font-bold leading-tight tracking-[-0.025em]">Put your launch message on trial</h1>
-          <p className="mt-4 max-w-[46ch] text-lg text-muted-foreground">
-            Objection splits your message into claims, finds what developers actually said about each one, and checks every quote against
-            the page it came from. Your team decides what counts.
+          <p className="m-0 mb-3 text-[15px] font-semibold text-push-text">
+            For teams building developer tools, APIs, SDKs and coding agents
+          </p>
+          <h1 className="m-0 text-[clamp(30px,4vw,44px)] font-bold leading-tight tracking-[-0.025em]">
+            Test your dev tool's pitch against real developers
+          </h1>
+          <p className="mt-4 max-w-[48ch] text-xl text-foreground">
+            Objection splits your launch copy into claims, finds what programmers said about each one on Hacker News, dev.to and GitHub, and
+            checks every quote against the page it came from. Your team decides what counts.
           </p>
           <Button size="lg" className="mt-6 rounded-[10px]" onClick={() => setShowAuth(true)}>
             Sign in to start a case

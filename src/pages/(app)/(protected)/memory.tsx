@@ -58,9 +58,9 @@ export default function MemoryPage() {
         {groups.map((g) => (
           <section key={g.key} className="overflow-hidden panel">
             <div className="panel-header px-[22px] py-4">
-              <h2 className="m-0 text-base font-semibold">{g.claimText}</h2>
+              <h2 className="m-0 text-[17px] font-semibold">{g.claimText}</h2>
               {g.caseRow && (
-                <p className="m-0 text-sm text-muted-foreground">
+                <p className="m-0 text-[15px] text-muted-foreground">
                   First tested in <Link to={`/cases/${g.caseRow.recordId}`}>{g.caseRow.data.title}</Link>
                 </p>
               )}
@@ -68,7 +68,7 @@ export default function MemoryPage() {
             <ol className="m-0 list-none p-0">
               {g.list.map((q) => (
                 <li key={q.recordId} className="border-t border-rule px-[22px] py-4">
-                  <div className="mb-1.5 flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
+                  <div className="mb-1.5 flex flex-wrap items-center gap-2 text-[15px] text-muted-foreground">
                     <span className={cn('rounded-md px-2 py-0.5 font-semibold', q.data.stance === 'push' ? 'bg-push-tint text-push-badge' : 'bg-support-tint text-support-badge')}>
                       {STANCE_LABEL[q.data.stance]}
                     </span>
@@ -78,7 +78,7 @@ export default function MemoryPage() {
                     </span>
                   </div>
                   <blockquote className="m-0 leading-relaxed">{q.data.text}</blockquote>
-                  <a href={q.data.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-1.5 inline-block text-[13px] font-medium text-support hover:text-foreground">
+                  <a href={q.data.sourceUrl} target="_blank" rel="noreferrer noopener" className="mt-1.5 inline-block text-[15px] font-medium text-support hover:text-foreground">
                     Open thread
                   </a>
                 </li>

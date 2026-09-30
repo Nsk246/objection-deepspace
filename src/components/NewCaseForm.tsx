@@ -49,11 +49,11 @@ export function NewCaseForm() {
     }
   }
 
-  const fieldError = (msg: string | null) => (submitted && msg ? <p className="mt-1 text-[13px] text-destructive">{msg}</p> : null)
+  const fieldError = (msg: string | null) => (submitted && msg ? <p className="mt-1 text-[15px] text-destructive">{msg}</p> : null)
 
   return (
     <form onSubmit={submit} noValidate className="flex flex-col gap-4 panel p-6">
-      <h2 className="m-0 text-lg font-semibold tracking-[-0.015em]">Put a message on trial</h2>
+      <h2 className="m-0 text-xl font-semibold tracking-[-0.015em]">Put your dev tool's message on trial</h2>
       <div>
         <Label htmlFor="case-title">Case name</Label>
         <Input id="case-title" value={title} maxLength={80} onChange={(e) => setTitle(e.target.value)} aria-invalid={submitted && !!problems.title} />
@@ -78,11 +78,11 @@ export function NewCaseForm() {
           value={message}
           rows={4}
           maxLength={config.limits.messageMaxChars}
-          placeholder="Paste a headline, a pitch or a launch post intro."
+          placeholder="Paste a landing page headline, a Show HN post or a README intro."
           onChange={(e) => setMessage(e.target.value)}
           aria-invalid={submitted && !!problems.message}
         />
-        <p className="mt-1 text-[13px] text-muted-foreground">
+        <p className="mt-1 text-[15px] text-muted-foreground">
           {message.length} of {config.limits.messageMaxChars} characters. Claude splits it into claims next; nothing is searched until your team approves them.
         </p>
         {fieldError(problems.message)}

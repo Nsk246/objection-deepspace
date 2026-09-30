@@ -18,7 +18,7 @@ export function SampleMessage() {
   return (
     <figure className="m-0 panel p-[clamp(22px,3vw,36px)]">
       <MarkedMessage message={message} claims={claims} selectedId="s1" size="md" />
-      <figcaption className="mt-6 flex flex-col gap-1.5 text-sm text-muted-foreground">
+      <figcaption className="mt-6 flex flex-col gap-1.5 text-[15px] text-muted-foreground">
         <span>
           <span className="font-semibold text-push-text">1</span> Mostly pushback from developers.
         </span>

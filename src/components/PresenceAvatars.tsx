@@ -10,7 +10,7 @@ function initials(name: string): string {
   return ((parts[0]?.[0] ?? '?') + (parts[1]?.[0] ?? '')).toUpperCase()
 }
 
-const avatar = 'flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-semibold text-primary-foreground ring-2 ring-card'
+const avatar = 'flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-primary-foreground ring-2 ring-card'
 
 export function PresenceAvatars({ caseId }: { caseId: string }) {
   const { peers } = usePresenceRoom(`case:${caseId}`)

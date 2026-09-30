@@ -61,10 +61,10 @@ export default function CasesPage() {
                     >
                       <span className="min-w-0">
                         <span className="block font-semibold">{c.data.title}</span>
-                        <span className="block text-sm text-muted-foreground">For {c.data.audience}</span>
+                        <span className="block text-[15px] text-muted-foreground">For {c.data.audience}</span>
                       </span>
                       {v && (
-                        <span className="text-sm text-muted-foreground">
+                        <span className="text-[15px] text-muted-foreground">
                           Version {v.data.number}. {STATUS_TEXT[v.data.status]}
                         </span>
                       )}

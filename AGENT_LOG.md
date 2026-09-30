@@ -61,3 +61,17 @@ What the coding agent (Claude Code) was asked, what it produced, what was wrong 
 - Run 3 real messages; read every kept quote against its source link.
 - Try to create a quote from the browser console (`useMutations('quotes').create`); it must be refused.
 - Two browsers on one case: votes and presence update live.
+
+---
+
+## 2026-09-30: First deploy
+
+**Live:** https://objection.app.space (app `app_01M3T0F0PT09T1NZZT3TC3CHQT`, GitHub source, claimed permanently on this deploy).
+
+**Agent mistake caught:** the agent committed `wrangler.toml` with the scaffold's `__APP_ID__` placeholder before the first deploy, although the scaffold's own "Next steps" said to commit only after deploying. The CLI refused to mint an id from committed history (`placeholder_committed`), so clones could not each register their own app. Fixed by running `npx deepspace app init` once and committing the real id.
+
+**Also:** the container's DeepSpace session token was rejected (401), so Nandhu logged in and deployed from his own machine. The agent never held a working DeepSpace credential.
+
+**Verified after deploy (public, signed out):** `/`, `/home`, `/cases`, `/memory` return 200 with the real title and headline; `POST /api/actions/startTrial` without a token returns `Unauthorized`. Typecheck, lint and 24 unit tests pass with the real app id.
+
+**Still to verify signed in:** a real trial end to end (Exa result shape, HN fetch from the worker, AI proxy calls), two-browser votes and presence, and that `useMutations('quotes').create` is refused from the browser console.

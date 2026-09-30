@@ -47,8 +47,8 @@ export function EvidenceList({
   ]
 
   return (
-    <aside aria-label={`Evidence for claim ${claim.index}`} className="min-w-0 flex-[1_1_360px] overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="px-[22px] pt-5 pb-3.5">
+    <aside aria-label={`Evidence for claim ${claim.index}`} className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-border bg-card lg:sticky lg:top-6 lg:max-h-[calc(100vh-48px)]">
+      <div className="shrink-0 border-b border-rule px-[22px] pt-5 pb-4">
         <p className={cn('m-0 mb-1 text-sm font-semibold', tone.label)}>
           Claim {claim.index}, {VERDICT_LABEL[verdict]}
         </p>
@@ -72,13 +72,13 @@ export function EvidenceList({
       </div>
 
       {shown.length === 0 ? (
-        <p className="m-0 border-t border-rule px-[22px] py-6 text-sm text-muted-foreground">
+        <p className="m-0 px-[22px] py-6 text-sm text-muted-foreground">
           {quotes.length === 0
             ? 'No developer discussion found. Either few developers care, or the claim is worded differently from how they talk. Reword it and run the trial again.'
             : 'Nothing in this filter.'}
         </p>
       ) : (
-        <ol className="m-0 list-none p-0">
+        <ol className="m-0 min-h-0 list-none overflow-y-auto p-0 [&>li:first-child]:border-t-0">
           {shown.map((q) => (
             <QuoteItem key={q.recordId} quote={q} votes={votes.filter((v) => v.data.quoteId === voteKey(q))} />
           ))}

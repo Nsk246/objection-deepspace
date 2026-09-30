@@ -187,14 +187,22 @@ function VersionBoard({
   }
 
   const messagePanel = (
-    <article className="rounded-2xl border border-border bg-card p-[clamp(24px,3.4vw,48px)]">
-      <MarkedMessage message={version.message} claims={marked} selectedId={reviewing ? null : selected?.id} onSelect={setSelectedId} />
+    <article aria-labelledby="message-heading" className="rounded-2xl border border-border bg-card">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-rule px-[22px] py-3.5">
+        <h2 id="message-heading" className="m-0 text-sm font-semibold text-muted-foreground">
+          Message under test
+        </h2>
+        <span className="text-sm text-muted-foreground">Version {version.number}</span>
+      </div>
+      <div className="px-[22px] py-6 md:px-8 md:py-7">
+        <MarkedMessage message={version.message} claims={marked} selectedId={reviewing ? null : selected?.id} onSelect={setSelectedId} />
+      </div>
     </article>
   )
 
   if (version.status === 'draft' || version.status === 'splitting') {
     return (
-      <div className="flex max-w-3xl flex-col gap-5">
+      <div className="mx-auto flex max-w-4xl flex-col gap-5">
         {messagePanel}
         <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card px-[22px] py-4">
           {version.status === 'splitting' ? (
@@ -216,7 +224,7 @@ function VersionBoard({
 
   if (reviewing) {
     return (
-      <div className="flex max-w-4xl flex-col gap-5">
+      <div className="mx-auto flex max-w-4xl flex-col gap-5">
         {messagePanel}
         {version.status === 'failed' && <p className="m-0 text-destructive">{version.error}</p>}
         <ClaimReview versionId={versionId} claims={sorted} trialsLeft={trialsLeft} />
@@ -225,8 +233,8 @@ function VersionBoard({
   }
 
   return (
-    <div className="flex flex-wrap items-start gap-6">
-      <section aria-label="Message under test" className="flex min-w-0 flex-[1_1_560px] flex-col gap-5">
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(360px,440px)]">
+      <section aria-label="Message and claims" className="flex min-w-0 flex-col gap-6">
         {messagePanel}
         <ClaimRows
           claims={rows}

@@ -10,29 +10,25 @@ function initials(name: string): string {
   return ((parts[0]?.[0] ?? '?') + (parts[1]?.[0] ?? '')).toUpperCase()
 }
 
+const avatar = 'flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-semibold text-primary-foreground ring-2 ring-card'
+
 export function PresenceAvatars({ caseId }: { caseId: string }) {
   const { peers } = usePresenceRoom(`case:${caseId}`)
   const { user } = useUser()
   // One avatar per person, even with several tabs open.
   const others = [...new Map(peers.map((p) => [p.userId, p])).values()].filter((p) => p.userId !== user?.id)
   const names = [...others.map((p) => p.userName || 'A teammate'), 'you']
+  const label = `Here now: ${names.join(', ')}`
 
   return (
-    <div className="flex items-center" title={`${names.join(', ')} ${names.length > 1 ? 'are' : 'is'} here`}>
-      <span className="sr-only">{`Here now: ${names.join(', ')}`}</span>
+    <div className="flex items-center -space-x-1.5" title={label}>
+      <span className="sr-only">{label}</span>
       {others.slice(0, 4).map((p) => (
-        <span
-          key={p.userId}
-          aria-hidden
-          className="-mr-2 flex h-[30px] w-[30px] items-center justify-center rounded-full border-2 border-card bg-support text-xs font-semibold text-primary-foreground"
-        >
+        <span key={p.userId} aria-hidden className={`${avatar} bg-support`}>
           {initials(p.userName || '?')}
         </span>
       ))}
-      <span
-        aria-hidden
-        className="flex h-[30px] w-[30px] items-center justify-center rounded-full border-2 border-card bg-primary text-xs font-semibold text-primary-foreground"
-      >
+      <span aria-hidden className={`${avatar} bg-primary`}>
         {initials(user?.name || user?.email || '?')}
       </span>
     </div>

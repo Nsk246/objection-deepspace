@@ -10,15 +10,7 @@ import { callAction } from '../lib/api'
 import { cn } from '../lib/utils'
 import type { ClaimData } from '../types'
 
-export function ClaimReview({
-  versionId,
-  claims,
-  trialsLeft,
-}: {
-  versionId: string
-  claims: RecordData<ClaimData>[]
-  trialsLeft: number
-}) {
+export function ClaimReview({ versionId, claims, trialsLeft }: { versionId: string; claims: RecordData<ClaimData>[]; trialsLeft: number }) {
   const { error, success } = useToast()
   const [starting, setStarting] = useState(false)
   const approved = claims.filter((c) => c.data.status === 'approved').length
@@ -73,71 +65,83 @@ function ClaimEditor({ claim }: { claim: RecordData<ClaimData> }) {
   function save() {
     const trimmed = text.trim()
     if (!trimmed) return
-    put(claim.recordId, { text: trimmed, searchQuery: query.trim() || trimmed })
+    put(claim.recordId, {
+      text: trimmed,
+      searchQuery: query.trim() || trimmed,
+    })
     setEditing(false)
   }
 
   return (
     <li className={cn('border-t border-rule px-[22px] py-4', dropped && 'bg-background')}>
-      <div className="flex flex-wrap items-start gap-x-4 gap-y-3">
+      <div className="flex items-start gap-4">
         <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-lg bg-border text-[13px] font-bold text-ink-soft">
           {c.index}
         </span>
-        <div className="min-w-0 flex-[1_1_280px]">
-          {editing ? (
-            <div className="flex flex-col gap-3">
-              <div>
-                <Label htmlFor={`claim-${claim.recordId}`}>Claim</Label>
-                <Textarea id={`claim-${claim.recordId}`} value={text} maxLength={240} onChange={(e) => setText(e.target.value)} />
+        <div className="flex min-w-0 flex-1 flex-col gap-3 md:flex-row md:items-start md:justify-between">
+          <div className="min-w-0 md:flex-1">
+            {editing ? (
+              <div className="flex flex-col gap-3">
+                <div>
+                  <Label htmlFor={`claim-${claim.recordId}`}>Claim</Label>
+                  <Textarea id={`claim-${claim.recordId}`} value={text} maxLength={240} onChange={(e) => setText(e.target.value)} />
+                </div>
+                <div>
+                  <Label htmlFor={`query-${claim.recordId}`}>Search words</Label>
+                  <Input id={`query-${claim.recordId}`} value={query} maxLength={120} onChange={(e) => setQuery(e.target.value)} />
+                  <p className="mt-1 text-[13px] text-muted-foreground">The words developers would use when they talk about this.</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button size="sm" disabled={!ready || !text.trim()} onClick={save}>
+                    Save claim
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setEditing(false)}>
+                    Cancel
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Label htmlFor={`query-${claim.recordId}`}>Search words</Label>
-                <Input id={`query-${claim.recordId}`} value={query} maxLength={120} onChange={(e) => setQuery(e.target.value)} />
-                <p className="mt-1 text-[13px] text-muted-foreground">The words developers would use when they talk about this.</p>
-              </div>
-              <div className="flex gap-2">
-                <Button size="sm" disabled={!ready || !text.trim()} onClick={save}>
-                  Save claim
-                </Button>
-                <Button size="sm" variant="ghost" onClick={() => setEditing(false)}>
-                  Cancel
-                </Button>
-              </div>
+            ) : (
+              <>
+                <p className={cn('m-0 font-semibold', dropped && 'text-muted-foreground line-through')}>{c.text}</p>
+                <dl className="m-0 mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-0.5 text-sm text-muted-foreground">
+                  <dt>From</dt>
+                  <dd className="m-0">“{c.span}”</dd>
+                  <dt>Search words</dt>
+                  <dd className="m-0">{c.searchQuery}</dd>
+                </dl>
+              </>
+            )}
+          </div>
+          {!editing && (
+            <div className="flex shrink-0 flex-wrap gap-2">
+              <Button size="sm" variant="outline" disabled={!ready} onClick={() => setEditing(true)}>
+                Reword this claim
+              </Button>
+              <Button
+                size="sm"
+                variant={c.status === 'approved' ? 'default' : 'outline'}
+                aria-pressed={c.status === 'approved'}
+                disabled={!ready}
+                onClick={() =>
+                  put(claim.recordId, {
+                    status: c.status === 'approved' ? 'draft' : 'approved',
+                  })
+                }
+              >
+                {c.status === 'approved' ? 'Approved' : 'Approve'}
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                aria-pressed={dropped}
+                disabled={!ready}
+                onClick={() => put(claim.recordId, { status: dropped ? 'draft' : 'dropped' })}
+              >
+                {dropped ? 'Restore' : 'Drop'}
+              </Button>
             </div>
-          ) : (
-            <>
-              <p className={cn('m-0 font-semibold', dropped && 'text-muted-foreground line-through')}>{c.text}</p>
-              <p className="m-0 text-sm text-muted-foreground">
-                From “{c.span}”. Searches for: {c.searchQuery}
-              </p>
-            </>
           )}
         </div>
-        {!editing && (
-          <div className="flex flex-wrap gap-2">
-            <Button size="sm" variant="outline" disabled={!ready} onClick={() => setEditing(true)}>
-              Reword this claim
-            </Button>
-            <Button
-              size="sm"
-              variant={c.status === 'approved' ? 'default' : 'outline'}
-              aria-pressed={c.status === 'approved'}
-              disabled={!ready}
-              onClick={() => put(claim.recordId, { status: c.status === 'approved' ? 'draft' : 'approved' })}
-            >
-              {c.status === 'approved' ? 'Approved' : 'Approve'}
-            </Button>
-            <Button
-              size="sm"
-              variant="ghost"
-              aria-pressed={dropped}
-              disabled={!ready}
-              onClick={() => put(claim.recordId, { status: dropped ? 'draft' : 'dropped' })}
-            >
-              {dropped ? 'Restore' : 'Drop'}
-            </Button>
-          </div>
-        )}
       </div>
     </li>
   )

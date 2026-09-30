@@ -28,7 +28,7 @@ export function ClaimRows({
 }) {
   return (
     <section aria-label="Claims" className="overflow-hidden rounded-2xl border border-border bg-card">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-[22px] py-4">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-[22px] py-4">
         <h2 className="m-0 text-base font-semibold">Claims</h2>
         <div className="text-sm text-muted-foreground">{status}</div>
       </div>

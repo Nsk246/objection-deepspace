@@ -16,8 +16,8 @@ const claims = [
 
 export function SampleMessage() {
   return (
-    <figure className="m-0 rounded-2xl border border-border bg-card p-[clamp(24px,3.4vw,44px)]">
-      <MarkedMessage message={message} claims={claims} selectedId="s1" />
+    <figure className="m-0 rounded-2xl border border-border bg-card p-[clamp(22px,3vw,36px)]">
+      <MarkedMessage message={message} claims={claims} selectedId="s1" size="md" />
       <figcaption className="mt-6 flex flex-col gap-1.5 text-sm text-muted-foreground">
         <span>
           <span className="font-semibold text-push-text">1</span> Mostly pushback from developers.

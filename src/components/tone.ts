@@ -6,49 +6,51 @@
 import type { Verdict } from '../lib/evidence'
 
 export interface Tone {
+  /** Highlighter stroke on the message. */
   mark: string
+  /** Extra emphasis on the selected mark: a heavier stroke, no box. */
+  selected: string
   number: string
   badge: string
   row: string
   label: string
-  outline: string
 }
 
 const push: Tone = {
-  mark: 'bg-push-tint shadow-[inset_0_-3px_0_var(--color-push)] rounded px-1',
+  mark: 'bg-push-tint px-1 shadow-[inset_0_-3px_0_var(--color-push)]',
+  selected: 'shadow-[inset_0_-6px_0_var(--color-push)]',
   number: 'text-push-text',
   badge: 'bg-push text-primary-foreground',
   row: 'bg-push-row',
   label: 'text-push-text',
-  outline: 'outline-2 outline-offset-[3px] outline-push',
 }
 
 const support: Tone = {
-  mark: 'bg-support-tint shadow-[inset_0_-3px_0_var(--color-support)] rounded px-1',
+  mark: 'bg-support-tint px-1 shadow-[inset_0_-3px_0_var(--color-support)]',
+  selected: 'shadow-[inset_0_-6px_0_var(--color-support)]',
   number: 'text-support',
   badge: 'bg-support text-primary-foreground',
   row: 'bg-support-row',
   label: 'text-support',
-  outline: 'outline-2 outline-offset-[3px] outline-support',
 }
 
 // Evidence both ways: highlighted, but in ink rather than either stance colour.
 const mixed: Tone = {
-  mark: 'bg-subtle shadow-[inset_0_-3px_0_var(--color-ink-soft)] rounded px-1',
+  mark: 'bg-subtle px-1 shadow-[inset_0_-3px_0_var(--color-ink-soft)]',
+  selected: 'shadow-[inset_0_-6px_0_var(--color-ink-soft)]',
   number: 'text-ink-soft',
   badge: 'bg-ink-soft text-primary-foreground',
   row: 'bg-subtle',
   label: 'text-ink-soft',
-  outline: 'outline-2 outline-offset-[3px] outline-ink-soft',
 }
 
 const none: Tone = {
-  mark: 'shadow-[inset_0_-2px_0_var(--color-quiet)] px-0.5',
+  mark: 'bg-transparent px-0.5 shadow-[inset_0_-2px_0_var(--color-quiet)]',
+  selected: 'bg-subtle shadow-[inset_0_-4px_0_var(--color-quiet)]',
   number: 'text-muted-foreground',
   badge: 'bg-border text-ink-soft',
   row: 'bg-subtle',
   label: 'text-muted-foreground',
-  outline: 'outline-2 outline-offset-[3px] outline-quiet',
 }
 
 export function toneOf(verdict: Verdict): Tone {

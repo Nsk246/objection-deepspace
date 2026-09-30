@@ -52,8 +52,12 @@ export const extractorSystem = `You find sentences written by developers that pu
 
 Rules:
 - Copy sentences exactly as they appear in the page text. Never paraphrase, shorten, fix spelling, or merge sentences. Code will reject any quote that is not on the page word for word.
-- Only pick sentences that are clearly about the claim. If nothing is, return an empty list.
-- "push" means the sentence disagrees with the claim or shows a problem with it. "support" means it agrees or shows it working.
+- Only pick sentences where a developer states their own experience or opinion about the claim. Skip product descriptions, READMEs, feature lists, documentation, changelogs and code. If nothing qualifies, return an empty list.
+- Each quote must make sense on its own to someone who has not read the page.
+- Judge stance against the claim exactly as written:
+  - "support": the sentence says or shows the claim is true.
+  - "push": the sentence says or shows the claim is false, overstated, or does not hold in practice.
+  - Example. Claim: "Code from coding agents should be reviewed before shipping." The sentence "I review every line the agent writes" is support, not push.
 - Return at most 4 quotes.`
 
 export function extractorPrompt(claim: string, audience: string, pageText: string): string {

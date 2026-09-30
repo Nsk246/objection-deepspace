@@ -80,12 +80,13 @@ async function runTrial(versionId: string, db: CronContext, env: Env, ctx: JobCo
 
     // 2. Scout
     step(0.1, `Searching Hacker News for claim ${n}`)
-    const pages: SourcePage[] = []
     const query = claim.data.searchQuery || claim.data.text
-    pages.push(...(await searchHackerNews(query, signal).catch(logSourceError('hn'))))
+    const hnPages = await searchHackerNews(query, signal).catch(logSourceError('hn'))
     step(0.25, `Searching dev.to and GitHub for claim ${n}`)
-    pages.push(...(await searchExa(query, (endpoint, params) => db.integrations.call(endpoint, params)).catch(logSourceError('exa'))))
+    const exaPages = await searchExa(query, (endpoint, params) => db.integrations.call(endpoint, params)).catch(logSourceError('exa'))
+    const pages: SourcePage[] = [...hnPages, ...exaPages]
     pagesRead += pages.length
+    const before = { kept, removed }
 
     // 3 + 4. Extract, then verify every quote against the page it came from.
     let keptForClaim = 0
@@ -98,6 +99,7 @@ async function runTrial(versionId: string, db: CronContext, env: Env, ctx: JobCo
         return { quotes: [] }
       })
       for (const q of extracted.quotes) {
+        if (keptForClaim >= config.quotes.maxPerClaim) break
         const reason = rejectionReason(q.text, page.text)
         const quote: QuoteData = {
           caseId: claim.data.caseId,
@@ -121,6 +123,10 @@ async function runTrial(versionId: string, db: CronContext, env: Env, ctx: JobCo
         }
       }
     }
+    // One line per claim, so the logs show which source found what.
+    console.info(
+      `[run-trial] claim ${n} query=${JSON.stringify(query)} hn=${hnPages.length} exa=${exaPages.length} kept=${kept - before.kept} removed=${removed - before.removed}`,
+    )
   }
 
   await db.records.update('versions', versionId, {

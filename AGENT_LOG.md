@@ -75,3 +75,18 @@ What the coding agent (Claude Code) was asked, what it produced, what was wrong 
 **Verified after deploy (public, signed out):** `/`, `/home`, `/cases`, `/memory` return 200 with the real title and headline; `POST /api/actions/startTrial` without a token returns `Unauthorized`. Typecheck, lint and 24 unit tests pass with the real app id.
 
 **Still to verify signed in:** a real trial end to end (Exa result shape, HN fetch from the worker, AI proxy calls), two-browser votes and presence, and that `useMutations('quotes').create` is refused from the browser console.
+
+---
+
+## 2026-09-30: First real trials, and what they showed
+
+**Ran (Nandhu, live):** four cases, including a version 2 and compare. Logs confirm `splitClaims` (one AI call, about 3.6s), `startTrial` (cap check, enqueue) and a 27-second `run-trial` job with no errors. Exa returns page text (`data.results[].text`), so the day-one guess about the response shape held.
+
+**Problems found by reading the output, and fixes:**
+- **GitHub results were project READMEs**, a project describing itself, counted as "support". Now only GitHub issues, discussions and pull requests count (`isDiscussion`), and the extractor prompt says to skip product descriptions, docs and code.
+- **Real quotes removed for formatting.** Pages from GitHub and dev.to keep Markdown (backticks, bold, links); the model copies the words without it, so the verbatim check failed. `normalize` now drops Markdown marks on both sides. New test covers it.
+- **Stance looked flipped** on "code should be reviewed before shipping" (9 push back). The extractor prompt now defines stance against the claim as written, with a worked example.
+- **Per-claim cap leaked** (10 kept where the cap is 8): it was only checked between pages. Now checked per quote.
+- **No Hacker News quotes on screen.** The HN API returns results for the same queries from outside. The worker now sends a User-Agent, and each claim logs `hn=… exa=… kept=… removed=…` so the next run shows which source found what. Exa also warns if its response shape changes.
+
+**Verified by me after the fix:** 29 unit tests, including new ones for Markdown normalization, the GitHub discussion filter and Exa's unexpected-shape path.

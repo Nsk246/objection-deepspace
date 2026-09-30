@@ -39,7 +39,8 @@ export async function searchHackerNews(query: string, signal: AbortSignal): Prom
   url.searchParams.set('numericFilters', `created_at_i>${since}`)
   url.searchParams.set('hitsPerPage', String(config.sources.hnCommentsPerClaim))
 
-  const res = await fetch(url, { signal })
+  // Identify ourselves; some APIs refuse anonymous server-to-server requests.
+  const res = await fetch(url, { signal, headers: { 'User-Agent': 'Objection (https://objection.app.space)' } })
   if (!res.ok) throw new Error(`Hacker News search failed (${res.status})`)
   const body = (await res.json()) as { hits?: HnHit[] }
 
@@ -68,9 +69,18 @@ export async function searchExa(query: string, call: IntegrationCall): Promise<S
     contents: { text: { maxCharacters: config.sources.maxPageChars } },
   })) as { results?: ExaResult[] } | undefined
 
-  return (data?.results ?? [])
+  // The proxy's response shape is not documented; say so loudly rather than find nothing quietly.
+  if (!Array.isArray(data?.results)) {
+    console.warn(`[exa] unexpected response shape, keys: ${data && typeof data === 'object' ? Object.keys(data).join(',') : typeof data}`)
+    return []
+  }
+  const withText = data.results.filter((r) => r.text).length
+  if (data.results.length > 0 && withText === 0) console.warn(`[exa] ${data.results.length} results but none carried text`)
+
+  return data.results
     // Only http(s) links: the URL becomes an "Open thread" link on the board.
     .filter((r): r is ExaResult & { url: string; text: string } => Boolean(r.url && /^https?:\/\//i.test(r.url) && r.text))
+    .filter((r) => isDiscussion(r.url))
     .map((r) => ({
       url: r.url,
       site: siteName(r.url),
@@ -84,4 +94,15 @@ export function siteName(url: string): string {
   if (host === 'news.ycombinator.com') return 'Hacker News'
   if (host === 'github.com') return 'GitHub'
   return host
+}
+
+/**
+ * GitHub search mostly returns READMEs, where a project describes itself. That is
+ * marketing, not a developer's experience, so only issues, discussions and pull
+ * request threads count. Other venues (dev.to posts and comments) pass through.
+ */
+export function isDiscussion(url: string): boolean {
+  const u = new URL(url)
+  if (u.hostname.replace(/^www\./, '') !== 'github.com') return true
+  return /^\/[^/]+\/[^/]+\/(issues|discussions|pull)\/\d+/.test(u.pathname)
 }

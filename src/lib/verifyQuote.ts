@@ -37,9 +37,15 @@ export function decodeEntities(s: string): string {
   })
 }
 
-/** Strip tags, decode entities, and collapse differences that are formatting, not wording. */
+/**
+ * Strip tags, decode entities, and collapse differences that are formatting, not wording.
+ * Markdown marks (`code`, **bold**, _em_, [link](url)) are dropped on both sides: page text
+ * from GitHub and dev.to keeps them, and the model usually copies the words without them.
+ */
 export function normalize(s: string): string {
   return decodeEntities(s.replace(/<[^>]+>/g, ' '))
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/[`*_~]/g, '')
     .toLowerCase()
     .replace(/[‘’‚′]/g, "'")
     .replace(/[“”„″]/g, '"')

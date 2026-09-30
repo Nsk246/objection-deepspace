@@ -38,6 +38,11 @@ describe('isVerbatim', () => {
     expect(isVerbatim("I don't trust it with auth. Every time I let it write", hn)).toBe(true)
   })
 
+  it('keeps a quote when the page has Markdown marks the model left out', () => {
+    const md = 'In v2, `bindings` is a **CognitiveBindings** object: one [implementation](https://x.dev/impl) per contract.'
+    expect(isVerbatim('In v2, bindings is a CognitiveBindings object: one implementation per contract.', md)).toBe(true)
+  })
+
   it('rejects a quote stitched together from two separate places on the page', () => {
     expect(isVerbatim('The agent gets me to a demo in two more weeks.', page)).toBe(false)
   })
